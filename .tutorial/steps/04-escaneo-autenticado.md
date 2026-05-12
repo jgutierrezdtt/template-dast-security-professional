@@ -2,17 +2,21 @@
 
 ## Objetivo de aprendizaje
 
-Configurar el escaneo DAST para que apunte al contexto correcto y produzca señales útiles.
+Un escaneo sin autenticación solo ve la superficie pública. Este paso enseña a ampliar la visibilidad hacia rutas que requieren sesión.
+
+## Que vas a cambiar y por que
+
+Configura el contexto del escaneo con autenticación para que la herramienta pueda acceder a zonas protegidas de la aplicación.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `zap/config.yaml`.
-- Seccion donde aplicar el cambio: contexto y política del escaneo.
-- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
+- Aplícalo en la parte del archivo que corresponde al título del paso.
+- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
 
-## Cambio que debes introducir
+## Cambio base recomendado
 
-Copia este bloque como base y adáptalo al contexto real del repositorio:
+Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
 
 ```yaml
 context:
@@ -27,19 +31,26 @@ scan:
 
 ## Como adaptarlo correctamente
 
-- Usa expresiones include/exclude coherentes con el alcance real del sistema.
-- Solo activa autenticación si el paso realmente la necesita.
+- Incluye solo las rutas que realmente forman parte del alcance del tutorial.
+- Describe o representa el método de autenticación sin exponer credenciales reales.
+- No conviertas el paso en un dump de configuración; céntrate en el contexto y la autenticación.
+
+## Que deberia verse al terminar
+
+- La configuración incluye una sección de `authentication`.
+- Se ve un contexto o include claro para el escaneo autenticado.
+- El alcance autenticado está separado del escaneo genérico.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-04.py` comprueba el archivo y los marcadores esperados de este paso.
-- Debe encontrar el marcador `context:` en `zap/config.yaml`.
-- Debe encontrar el marcador `name: app-context` en `zap/config.yaml`.
-- Debe encontrar el marcador `include:` en `zap/config.yaml`.
-- Debe encontrar el marcador `authentication:` en `zap/config.yaml`.
-- Debe encontrar el marcador `scan:` en `zap/config.yaml`.
-- Debe encontrar el marcador `fail_on_risk: high` en `zap/config.yaml`.
+- `scripts/validate-step-04.py` comprueba este paso contra el archivo configurado.
+- El workflow busca `context:` dentro de `zap/config.yaml`.
+- El workflow busca `name: app-context` dentro de `zap/config.yaml`.
+- El workflow busca `include:` dentro de `zap/config.yaml`.
+- El workflow busca `authentication:` dentro de `zap/config.yaml`.
+- El workflow busca `scan:` dentro de `zap/config.yaml`.
+- El workflow busca `fail_on_risk: high` dentro de `zap/config.yaml`.
 
 ## Criterio de finalizacion
 

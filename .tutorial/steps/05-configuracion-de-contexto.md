@@ -2,44 +2,52 @@
 
 ## Objetivo de aprendizaje
 
-Configurar el escaneo DAST para que apunte al contexto correcto y produzca señales útiles.
+Este paso introduce un control de DAST y debe dejar un cambio comprensible en zap/config.yaml.
+
+## Que vas a cambiar y por que
+
+Actualiza zap/config.yaml para que el control de "configuracion de contexto" quede explícito y revisable.
 
 ## Archivo y seccion que debes modificar
 
 - Archivo objetivo: `zap/config.yaml`.
-- Seccion donde aplicar el cambio: contexto y política del escaneo.
-- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
+- Aplícalo en la parte del archivo que corresponde al título del paso.
+- Si el archivo aún no existe, créalo con este contenido inicial y luego evoluciona desde ahí en los siguientes pasos.
 
-## Cambio que debes introducir
+## Cambio base recomendado
 
-Copia este bloque como base y adáptalo al contexto real del repositorio:
+Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo al contexto del repositorio.
 
 ```yaml
 context:
-  name: app-context
-  include:
-    - https://example.test/.*
+name: app-context
+include:
 authentication:
-  method: form
 scan:
-  fail_on_risk: high
 ```
 
 ## Como adaptarlo correctamente
 
-- Usa expresiones include/exclude coherentes con el alcance real del sistema.
-- Solo activa autenticación si el paso realmente la necesita.
+- Mantén el cambio pequeño y centrado en una sola idea por paso.
+- Usa nombres claros para secciones, reglas o jobs.
+- Evita añadir configuración que no esté relacionada con el objetivo del paso.
+
+## Que deberia verse al terminar
+
+- La intención del cambio se entiende leyendo el archivo.
+- El archivo muestra el control sin depender de comentarios ambiguos.
+- Los marcadores esperados del paso aparecen de forma natural en la configuración.
 
 ## Que valida el workflow automaticamente
 
 - `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-05.py` comprueba el archivo y los marcadores esperados de este paso.
-- Debe encontrar el marcador `context:` en `zap/config.yaml`.
-- Debe encontrar el marcador `name: app-context` en `zap/config.yaml`.
-- Debe encontrar el marcador `include:` en `zap/config.yaml`.
-- Debe encontrar el marcador `authentication:` en `zap/config.yaml`.
-- Debe encontrar el marcador `scan:` en `zap/config.yaml`.
-- Debe encontrar el marcador `fail_on_risk: high` en `zap/config.yaml`.
+- `scripts/validate-step-05.py` comprueba este paso contra el archivo configurado.
+- El workflow busca `context:` dentro de `zap/config.yaml`.
+- El workflow busca `name: app-context` dentro de `zap/config.yaml`.
+- El workflow busca `include:` dentro de `zap/config.yaml`.
+- El workflow busca `authentication:` dentro de `zap/config.yaml`.
+- El workflow busca `scan:` dentro de `zap/config.yaml`.
+- El workflow busca `fail_on_risk: high` dentro de `zap/config.yaml`.
 
 ## Criterio de finalizacion
 
