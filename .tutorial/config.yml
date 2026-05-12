@@ -1,0 +1,6 @@
+tutorial:
+  name: DAST Security Professional
+  level: professional
+  total_steps: 25
+  default_language: es
+  base_repository: jgutierrezdtt/security-tutorial-base
