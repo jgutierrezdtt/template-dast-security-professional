@@ -24,7 +24,7 @@ Equipos de AppSec, QA de seguridad y DevSecOps que necesiten integrar pruebas di
 
 ## Inicio del tutorial
 
-[![Empezar tutorial](https://img.shields.io/badge/Empezar%20tutorial-0b69ff?style=for-the-badge&logo=github&logoColor=white)](https://github.com/new?template_name=template-dast-security-professional&template_owner=jgutierrezdtt)
+[![Empezar tutorial](https://img.shields.io/badge/Empezar%20tutorial-0b69ff?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jgutierrezdtt/template-dast-security-professional/fork)
 
 ## Acceso al repositorio
 
