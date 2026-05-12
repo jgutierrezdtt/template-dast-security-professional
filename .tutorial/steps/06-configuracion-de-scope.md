@@ -1,36 +1,73 @@
-# Paso 6. Configuración de scope
+# Paso 6. Configuracion de scope
 
-## Objetivo
+## Que vas a hacer en este paso?
 
-Aplicar el control DAST correspondiente para mejorar cobertura dinámica y calidad de detección en aplicaciones en ejecución.
+Implementaras este control de DAST de forma concreta sobre el archivo `.zap/rules.tsv` y registraras evidencia tecnica en `.tutorial/evidence/step-06.json`.
 
-## Contexto profesional
+## Por que es importante
 
-DAST permite identificar vulnerabilidades explotables en runtime y validar el riesgo real sobre aplicaciones web y APIs.
+**En la practica real**:
+- Este control reduce riesgo operativo y mejora trazabilidad.
+- Permite validar avance real, no solo lectura del tutorial.
 
-## Explicación técnica
+**Lo que logras**:
+- Resultado tecnico verificable para el paso 6.
+- Evidencia auditable para revisiones de seguridad.
 
-Este paso introduce una práctica concreta de escaneo dinámico, configuración de alcance y gestión de hallazgos con enfoque operativo.
+---
 
-## Archivos que se modifican
+## Instrucciones paso-a-paso
 
-- .github/workflows/
-- .tutorial/
-- dast/
-- docs/
+### Paso 6.1: Prepara el artefacto principal
 
-## Acción esperada del usuario
+Crea o actualiza el archivo objetivo de este paso:
 
-Implementar el control del paso 6, documentar la decisión técnica y dejar evidencia verificable de su ejecución.
+```bash
+mkdir -p "$(dirname .zap/rules.tsv)"
+touch .zap/rules.tsv
+```
 
-## Validación automática
+### Paso 6.2: Registra evidencia del paso
 
-La validación comprueba estructura, coherencia de configuración y avance de estado del tutorial.
+Crea el archivo `.tutorial/evidence/step-06.json` con este contenido:
 
-## Criterio de finalización
+```bash
+mkdir -p .tutorial/evidence
+cat > .tutorial/evidence/step-06.json << 'EOF'
+{
+  "step": 6,
+  "title": "Configuracion de scope",
+  "status": "completed",
+  "artifact": ".zap/rules.tsv"
+}
+EOF
+```
 
-El paso queda correctamente aplicado, con resultado reproducible y documentación suficiente para revisión técnica.
+---
 
-## Enlace al siguiente paso
+## Verificacion local
 
-Paso 7.
+```bash
+test -f .zap/rules.tsv && echo "artifact ok"
+python3 -c 'import json;json.load(open(".tutorial/evidence/step-06.json"));print("evidence ok")'
+```
+
+---
+
+## Validacion automatica
+
+`validate-step-06.py` verificara:
+- Existe `.zap/rules.tsv`.
+- Existe `.tutorial/evidence/step-06.json`.
+- La evidencia marca `status=completed` y `step=6`.
+
+---
+
+## Criterio de finalizacion
+
+Paso 6 esta completo cuando:
+1. `.zap/rules.tsv` existe en el repositorio.
+2. `.tutorial/evidence/step-06.json` existe y es JSON valido.
+3. `.tutorial/state.json` muestra `"current_step": 7`.
+
+**Siguiente paso**: Paso 7

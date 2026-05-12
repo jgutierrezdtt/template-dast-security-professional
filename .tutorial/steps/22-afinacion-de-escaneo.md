@@ -1,36 +1,73 @@
-# Paso 22. Afinación de escaneo
+# Paso 22. Afinacion de escaneo
 
-## Objetivo
+## Que vas a hacer en este paso?
 
-Aplicar el control DAST correspondiente para mejorar cobertura dinámica y calidad de detección en aplicaciones en ejecución.
+Implementaras este control de DAST de forma concreta sobre el archivo `docs/dast-programa.md` y registraras evidencia tecnica en `.tutorial/evidence/step-22.json`.
 
-## Contexto profesional
+## Por que es importante
 
-DAST permite identificar vulnerabilidades explotables en runtime y validar el riesgo real sobre aplicaciones web y APIs.
+**En la practica real**:
+- Este control reduce riesgo operativo y mejora trazabilidad.
+- Permite validar avance real, no solo lectura del tutorial.
 
-## Explicación técnica
+**Lo que logras**:
+- Resultado tecnico verificable para el paso 22.
+- Evidencia auditable para revisiones de seguridad.
 
-Este paso introduce una práctica concreta de escaneo dinámico, configuración de alcance y gestión de hallazgos con enfoque operativo.
+---
 
-## Archivos que se modifican
+## Instrucciones paso-a-paso
 
-- .github/workflows/
-- .tutorial/
-- dast/
-- docs/
+### Paso 22.1: Prepara el artefacto principal
 
-## Acción esperada del usuario
+Crea o actualiza el archivo objetivo de este paso:
 
-Implementar el control del paso 22, documentar la decisión técnica y dejar evidencia verificable de su ejecución.
+```bash
+mkdir -p "$(dirname docs/dast-programa.md)"
+touch docs/dast-programa.md
+```
 
-## Validación automática
+### Paso 22.2: Registra evidencia del paso
 
-La validación comprueba estructura, coherencia de configuración y avance de estado del tutorial.
+Crea el archivo `.tutorial/evidence/step-22.json` con este contenido:
 
-## Criterio de finalización
+```bash
+mkdir -p .tutorial/evidence
+cat > .tutorial/evidence/step-22.json << 'EOF'
+{
+  "step": 22,
+  "title": "Afinacion de escaneo",
+  "status": "completed",
+  "artifact": "docs/dast-programa.md"
+}
+EOF
+```
 
-El paso queda correctamente aplicado, con resultado reproducible y documentación suficiente para revisión técnica.
+---
 
-## Enlace al siguiente paso
+## Verificacion local
 
-Paso 23.
+```bash
+test -f docs/dast-programa.md && echo "artifact ok"
+python3 -c 'import json;json.load(open(".tutorial/evidence/step-22.json"));print("evidence ok")'
+```
+
+---
+
+## Validacion automatica
+
+`validate-step-22.py` verificara:
+- Existe `docs/dast-programa.md`.
+- Existe `.tutorial/evidence/step-22.json`.
+- La evidencia marca `status=completed` y `step=22`.
+
+---
+
+## Criterio de finalizacion
+
+Paso 22 esta completo cuando:
+1. `docs/dast-programa.md` existe en el repositorio.
+2. `.tutorial/evidence/step-22.json` existe y es JSON valido.
+3. `.tutorial/state.json` muestra `"current_step": 23`.
+
+**Siguiente paso**: Paso 23

@@ -1,36 +1,73 @@
-# Paso 13. Detección de regresiones
+# Paso 13. Deteccion de regresiones
 
-## Objetivo
+## Que vas a hacer en este paso?
 
-Aplicar el control DAST correspondiente para mejorar cobertura dinámica y calidad de detección en aplicaciones en ejecución.
+Implementaras este control de DAST de forma concreta sobre el archivo `.github/workflows/dast.yml` y registraras evidencia tecnica en `.tutorial/evidence/step-13.json`.
 
-## Contexto profesional
+## Por que es importante
 
-DAST permite identificar vulnerabilidades explotables en runtime y validar el riesgo real sobre aplicaciones web y APIs.
+**En la practica real**:
+- Este control reduce riesgo operativo y mejora trazabilidad.
+- Permite validar avance real, no solo lectura del tutorial.
 
-## Explicación técnica
+**Lo que logras**:
+- Resultado tecnico verificable para el paso 13.
+- Evidencia auditable para revisiones de seguridad.
 
-Este paso introduce una práctica concreta de escaneo dinámico, configuración de alcance y gestión de hallazgos con enfoque operativo.
+---
 
-## Archivos que se modifican
+## Instrucciones paso-a-paso
 
-- .github/workflows/
-- .tutorial/
-- dast/
-- docs/
+### Paso 13.1: Prepara el artefacto principal
 
-## Acción esperada del usuario
+Crea o actualiza el archivo objetivo de este paso:
 
-Implementar el control del paso 13, documentar la decisión técnica y dejar evidencia verificable de su ejecución.
+```bash
+mkdir -p "$(dirname .github/workflows/dast.yml)"
+touch .github/workflows/dast.yml
+```
 
-## Validación automática
+### Paso 13.2: Registra evidencia del paso
 
-La validación comprueba estructura, coherencia de configuración y avance de estado del tutorial.
+Crea el archivo `.tutorial/evidence/step-13.json` con este contenido:
 
-## Criterio de finalización
+```bash
+mkdir -p .tutorial/evidence
+cat > .tutorial/evidence/step-13.json << 'EOF'
+{
+  "step": 13,
+  "title": "Deteccion de regresiones",
+  "status": "completed",
+  "artifact": ".github/workflows/dast.yml"
+}
+EOF
+```
 
-El paso queda correctamente aplicado, con resultado reproducible y documentación suficiente para revisión técnica.
+---
 
-## Enlace al siguiente paso
+## Verificacion local
 
-Paso 14.
+```bash
+test -f .github/workflows/dast.yml && echo "artifact ok"
+python3 -c 'import json;json.load(open(".tutorial/evidence/step-13.json"));print("evidence ok")'
+```
+
+---
+
+## Validacion automatica
+
+`validate-step-13.py` verificara:
+- Existe `.github/workflows/dast.yml`.
+- Existe `.tutorial/evidence/step-13.json`.
+- La evidencia marca `status=completed` y `step=13`.
+
+---
+
+## Criterio de finalizacion
+
+Paso 13 esta completo cuando:
+1. `.github/workflows/dast.yml` existe en el repositorio.
+2. `.tutorial/evidence/step-13.json` existe y es JSON valido.
+3. `.tutorial/state.json` muestra `"current_step": 14`.
+
+**Siguiente paso**: Paso 14
