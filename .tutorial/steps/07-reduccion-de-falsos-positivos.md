@@ -2,34 +2,47 @@
 
 ## Objetivo de aprendizaje
 
-En este paso vas a practicar un control de DAST para entender que decision de configuracion aplicar y por que.
+Configurar el escaneo DAST para que apunte al contexto correcto y produzca señales útiles.
 
-## Que debe hacer la persona participante
+## Archivo y seccion que debes modificar
 
-1. Revisar el contexto del control en este paso.
-2. Editar la configuracion esperada en `.zap/rules.tsv`.
-3. Guardar y subir el cambio en el flujo normal del repositorio (commit/push o PR).
+- Archivo objetivo: `zap/config.yaml`.
+- Seccion donde aplicar el cambio: contexto y política del escaneo.
+- Resultado esperado: el repositorio incorpora el control de este paso de forma legible y revisable.
 
-## Que configurar exactamente
+## Cambio que debes introducir
 
-- Campo o seccion objetivo: relacionado con "Reduccion de falsos positivos".
-- Ubicacion principal: `.zap/rules.tsv`.
-- Resultado esperado: que la configuracion refleje el control del paso 7.
+Copia este bloque como base y adáptalo al contexto real del repositorio:
 
-## Checklist de configuracion
+```yaml
+context:
+  name: app-context
+  include:
+    - https://example.test/.*
+authentication:
+  method: form
+scan:
+  fail_on_risk: high
+```
 
-- El cambio del paso 7 esta presente en `.zap/rules.tsv`.
-- El cambio es coherente con el objetivo del paso.
-- El repositorio incluye la evidencia de progreso para este paso.
+## Como adaptarlo correctamente
 
-## Validacion automatica (sin ejecucion manual)
+- Usa expresiones include/exclude coherentes con el alcance real del sistema.
+- Solo activa autenticación si el paso realmente la necesita.
 
-- `validate-steps.yml` se ejecuta automaticamente por eventos `push`, `pull_request` y `workflow_dispatch`.
-- `scripts/validate-step-07.py` valida que el control de este paso esta aplicado.
-- El estado de progreso se refleja en `.tutorial/state.json`.
+## Que valida el workflow automaticamente
+
+- `validate-steps.yml` se ejecuta con `push`, `pull_request` y `workflow_dispatch`.
+- `scripts/validate-step-07.py` comprueba el archivo y los marcadores esperados de este paso.
+- Debe encontrar el marcador `context:` en `zap/config.yaml`.
+- Debe encontrar el marcador `name: app-context` en `zap/config.yaml`.
+- Debe encontrar el marcador `include:` en `zap/config.yaml`.
+- Debe encontrar el marcador `authentication:` en `zap/config.yaml`.
+- Debe encontrar el marcador `scan:` en `zap/config.yaml`.
+- Debe encontrar el marcador `fail_on_risk: high` en `zap/config.yaml`.
 
 ## Criterio de finalizacion
 
-El paso 7 se marca como completado cuando GitHub Actions reporta exito para `validate-step-07.py`.
+El paso 7 queda completado cuando el workflow de GitHub Actions valida este cambio sin errores.
 
 Siguiente paso: Paso 8.
