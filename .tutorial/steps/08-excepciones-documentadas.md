@@ -1,73 +1,23 @@
 # Paso 8. Excepciones documentadas
 
-## Que vas a hacer en este paso?
+## Que hace este paso automaticamente
 
-Implementaras este control de DAST de forma concreta sobre el archivo `.github/workflows/dast.yml` y registraras evidencia tecnica en `.tutorial/evidence/step-08.json`.
+Este paso se valida de forma automatica en el pipeline de DAST. No requiere ejecucion manual de comandos por parte del usuario.
 
-## Por que es importante
+## Como se ejecuta
 
-**En la practica real**:
-- Este control reduce riesgo operativo y mejora trazabilidad.
-- Permite validar avance real, no solo lectura del tutorial.
+- El workflow `validate-steps.yml` se dispara por evento `push`, `pull_request` y `workflow_dispatch`.
+- El validador `scripts/validate-step-08.py` comprueba el estado esperado para este paso.
+- Si la validacion pasa, el estado del tutorial se refleja en `.tutorial/state.json`.
 
-**Lo que logras**:
-- Resultado tecnico verificable para el paso 8.
-- Evidencia auditable para revisiones de seguridad.
+## Evidencia tecnica evaluada por el sistema
 
----
+- Artefacto principal esperado: `.zap/rules.tsv`.
+- Estado del paso en evidencia automatica: `.tutorial/evidence/step-08.json`.
+- Coherencia de progresion en: `.tutorial/state.json`.
 
-## Instrucciones paso-a-paso
+## Criterio de finalizacion automatica
 
-### Paso 8.1: Prepara el artefacto principal
+El paso 8 queda completado cuando el workflow reporta exito para `validate-step-08.py` en GitHub Actions.
 
-Crea o actualiza el archivo objetivo de este paso:
-
-```bash
-mkdir -p "$(dirname .github/workflows/dast.yml)"
-touch .github/workflows/dast.yml
-```
-
-### Paso 8.2: Registra evidencia del paso
-
-Crea el archivo `.tutorial/evidence/step-08.json` con este contenido:
-
-```bash
-mkdir -p .tutorial/evidence
-cat > .tutorial/evidence/step-08.json << 'EOF'
-{
-  "step": 8,
-  "title": "Excepciones documentadas",
-  "status": "completed",
-  "artifact": ".github/workflows/dast.yml"
-}
-EOF
-```
-
----
-
-## Verificacion local
-
-```bash
-test -f .github/workflows/dast.yml && echo "artifact ok"
-python3 -c 'import json;json.load(open(".tutorial/evidence/step-08.json"));print("evidence ok")'
-```
-
----
-
-## Validacion automatica
-
-`validate-step-08.py` verificara:
-- Existe `.github/workflows/dast.yml`.
-- Existe `.tutorial/evidence/step-08.json`.
-- La evidencia marca `status=completed` y `step=8`.
-
----
-
-## Criterio de finalizacion
-
-Paso 8 esta completo cuando:
-1. `.github/workflows/dast.yml` existe en el repositorio.
-2. `.tutorial/evidence/step-08.json` existe y es JSON valido.
-3. `.tutorial/state.json` muestra `"current_step": 9`.
-
-**Siguiente paso**: Paso 9
+Siguiente paso automatico: Paso 9.

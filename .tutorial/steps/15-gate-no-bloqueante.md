@@ -1,73 +1,23 @@
 # Paso 15. Gate no bloqueante
 
-## Que vas a hacer en este paso?
+## Que hace este paso automaticamente
 
-Implementaras este control de DAST de forma concreta sobre el archivo `.github/workflows/dast.yml` y registraras evidencia tecnica en `.tutorial/evidence/step-15.json`.
+Este paso se valida de forma automatica en el pipeline de DAST. No requiere ejecucion manual de comandos por parte del usuario.
 
-## Por que es importante
+## Como se ejecuta
 
-**En la practica real**:
-- Este control reduce riesgo operativo y mejora trazabilidad.
-- Permite validar avance real, no solo lectura del tutorial.
+- El workflow `validate-steps.yml` se dispara por evento `push`, `pull_request` y `workflow_dispatch`.
+- El validador `scripts/validate-step-15.py` comprueba el estado esperado para este paso.
+- Si la validacion pasa, el estado del tutorial se refleja en `.tutorial/state.json`.
 
-**Lo que logras**:
-- Resultado tecnico verificable para el paso 15.
-- Evidencia auditable para revisiones de seguridad.
+## Evidencia tecnica evaluada por el sistema
 
----
+- Artefacto principal esperado: `.github/workflows/dast.yml`.
+- Estado del paso en evidencia automatica: `.tutorial/evidence/step-15.json`.
+- Coherencia de progresion en: `.tutorial/state.json`.
 
-## Instrucciones paso-a-paso
+## Criterio de finalizacion automatica
 
-### Paso 15.1: Prepara el artefacto principal
+El paso 15 queda completado cuando el workflow reporta exito para `validate-step-15.py` en GitHub Actions.
 
-Crea o actualiza el archivo objetivo de este paso:
-
-```bash
-mkdir -p "$(dirname .github/workflows/dast.yml)"
-touch .github/workflows/dast.yml
-```
-
-### Paso 15.2: Registra evidencia del paso
-
-Crea el archivo `.tutorial/evidence/step-15.json` con este contenido:
-
-```bash
-mkdir -p .tutorial/evidence
-cat > .tutorial/evidence/step-15.json << 'EOF'
-{
-  "step": 15,
-  "title": "Gate no bloqueante",
-  "status": "completed",
-  "artifact": ".github/workflows/dast.yml"
-}
-EOF
-```
-
----
-
-## Verificacion local
-
-```bash
-test -f .github/workflows/dast.yml && echo "artifact ok"
-python3 -c 'import json;json.load(open(".tutorial/evidence/step-15.json"));print("evidence ok")'
-```
-
----
-
-## Validacion automatica
-
-`validate-step-15.py` verificara:
-- Existe `.github/workflows/dast.yml`.
-- Existe `.tutorial/evidence/step-15.json`.
-- La evidencia marca `status=completed` y `step=15`.
-
----
-
-## Criterio de finalizacion
-
-Paso 15 esta completo cuando:
-1. `.github/workflows/dast.yml` existe en el repositorio.
-2. `.tutorial/evidence/step-15.json` existe y es JSON valido.
-3. `.tutorial/state.json` muestra `"current_step": 16`.
-
-**Siguiente paso**: Paso 16
+Siguiente paso automatico: Paso 16.

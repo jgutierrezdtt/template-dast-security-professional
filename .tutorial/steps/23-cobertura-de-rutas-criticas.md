@@ -1,73 +1,23 @@
 # Paso 23. Cobertura de rutas criticas
 
-## Que vas a hacer en este paso?
+## Que hace este paso automaticamente
 
-Implementaras este control de DAST de forma concreta sobre el archivo `docs/dast-programa.md` y registraras evidencia tecnica en `.tutorial/evidence/step-23.json`.
+Este paso se valida de forma automatica en el pipeline de DAST. No requiere ejecucion manual de comandos por parte del usuario.
 
-## Por que es importante
+## Como se ejecuta
 
-**En la practica real**:
-- Este control reduce riesgo operativo y mejora trazabilidad.
-- Permite validar avance real, no solo lectura del tutorial.
+- El workflow `validate-steps.yml` se dispara por evento `push`, `pull_request` y `workflow_dispatch`.
+- El validador `scripts/validate-step-23.py` comprueba el estado esperado para este paso.
+- Si la validacion pasa, el estado del tutorial se refleja en `.tutorial/state.json`.
 
-**Lo que logras**:
-- Resultado tecnico verificable para el paso 23.
-- Evidencia auditable para revisiones de seguridad.
+## Evidencia tecnica evaluada por el sistema
 
----
+- Artefacto principal esperado: `.github/workflows/dast.yml`.
+- Estado del paso en evidencia automatica: `.tutorial/evidence/step-23.json`.
+- Coherencia de progresion en: `.tutorial/state.json`.
 
-## Instrucciones paso-a-paso
+## Criterio de finalizacion automatica
 
-### Paso 23.1: Prepara el artefacto principal
+El paso 23 queda completado cuando el workflow reporta exito para `validate-step-23.py` en GitHub Actions.
 
-Crea o actualiza el archivo objetivo de este paso:
-
-```bash
-mkdir -p "$(dirname docs/dast-programa.md)"
-touch docs/dast-programa.md
-```
-
-### Paso 23.2: Registra evidencia del paso
-
-Crea el archivo `.tutorial/evidence/step-23.json` con este contenido:
-
-```bash
-mkdir -p .tutorial/evidence
-cat > .tutorial/evidence/step-23.json << 'EOF'
-{
-  "step": 23,
-  "title": "Cobertura de rutas criticas",
-  "status": "completed",
-  "artifact": "docs/dast-programa.md"
-}
-EOF
-```
-
----
-
-## Verificacion local
-
-```bash
-test -f docs/dast-programa.md && echo "artifact ok"
-python3 -c 'import json;json.load(open(".tutorial/evidence/step-23.json"));print("evidence ok")'
-```
-
----
-
-## Validacion automatica
-
-`validate-step-23.py` verificara:
-- Existe `docs/dast-programa.md`.
-- Existe `.tutorial/evidence/step-23.json`.
-- La evidencia marca `status=completed` y `step=23`.
-
----
-
-## Criterio de finalizacion
-
-Paso 23 esta completo cuando:
-1. `docs/dast-programa.md` existe en el repositorio.
-2. `.tutorial/evidence/step-23.json` existe y es JSON valido.
-3. `.tutorial/state.json` muestra `"current_step": 24`.
-
-**Siguiente paso**: Paso 24
+Siguiente paso automatico: Paso 24.
