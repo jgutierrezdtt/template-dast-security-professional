@@ -2,11 +2,11 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de DAST y debe dejar un cambio comprensible en docs/dast-analysis.md.
+Este paso cierra el recorrido de DAST Professional y debe dejar un cambio comprensible en `docs/dast-analysis.md`.
 
 ## Que vas a cambiar y por que
 
-Actualiza docs/dast-analysis.md para que el control de "medalla final dast professional" quede explícito y revisable.
+Actualiza `docs/dast-analysis.md` para cerrar el tutorial con una evidencia final coherente. La idea no es añadir un marcador nuevo, sino dejar claro que el análisis ya reúne identificación del hallazgo, ruta afectada, evaluación del riesgo y decisión operativa como una práctica madura y repetible.
 
 ## Archivo y seccion que debes modificar
 
@@ -28,7 +28,9 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 ## Como adaptarlo correctamente
 
 - Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
+- Usa `## Hallazgo`, `## Ruta afectada`, `## Riesgo` y `## Decision` como el resumen completo del trabajo realizado en el tutorial.
+- Haz que `## Decision` refleje madurez operativa: corregido, priorizado, aceptado temporalmente o listo para auditoría.
+- Mantén un lenguaje claro para que el documento funcione como evidencia final del laboratorio.
 - Evita añadir configuración que no esté relacionada con el objetivo del paso.
 
 ## Que deberia verse al terminar
@@ -36,6 +38,7 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 - La intención del cambio se entiende leyendo el archivo.
 - El archivo muestra el control sin depender de comentarios ambiguos.
 - Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El documento ya resume una práctica DAST profesional completa y revisable.
 
 ## Que valida el workflow automaticamente
 
