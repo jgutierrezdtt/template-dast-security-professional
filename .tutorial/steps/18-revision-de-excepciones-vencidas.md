@@ -2,11 +2,11 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de DAST y debe dejar un cambio comprensible en docs/dast-exceptions.yml.
+Este paso introduce la revisión de excepciones vencidas en DAST y debe dejar un cambio comprensible en `docs/dast-exceptions.yml`.
 
 ## Que vas a cambiar y por que
 
-Actualiza docs/dast-exceptions.yml para que el control de "revision de excepciones vencidas" quede explícito y revisable.
+Actualiza `docs/dast-exceptions.yml` para que las excepciones no se acumulen sin control. En este paso, `expires_on:` debe entenderse como disparador de revisión: cuando una excepción vence, el equipo tiene que reevaluar si el hallazgo sigue justificado, si ya se corrigió o si debe escalarse.
 
 ## Archivo y seccion que debes modificar
 
@@ -20,16 +20,18 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 
 ```yaml
 exceptions:
-alert:
-path:
-reason:
-expires_on:
+  - alert: Missing Anti-CSRF Tokens
+    path: /profile
+    reason: Revision pendiente por caducidad
+    expires_on: 2026-12-31
 ```
 
 ## Como adaptarlo correctamente
 
 - Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
+- Usa `expires_on:` como fecha de control, no como dato decorativo.
+- Haz que `reason:` indique por qué la excepción sigue en revisión o qué debe confirmarse al vencer.
+- Mantén `alert:` y `path:` suficientemente concretos para saber exactamente qué excepción debe revisarse.
 - Evita añadir configuración que no esté relacionada con el objetivo del paso.
 
 ## Que deberia verse al terminar
@@ -37,6 +39,7 @@ expires_on:
 - La intención del cambio se entiende leyendo el archivo.
 - El archivo muestra el control sin depender de comentarios ambiguos.
 - Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El archivo ya transmite disciplina de revisión y no solo acumulación de aceptaciones.
 
 ## Que valida el workflow automaticamente
 
