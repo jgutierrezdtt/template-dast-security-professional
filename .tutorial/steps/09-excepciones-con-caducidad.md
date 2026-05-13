@@ -2,11 +2,11 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de DAST y debe dejar un cambio comprensible en docs/dast-exceptions.yml.
+Este paso introduce las excepciones con caducidad en DAST y debe dejar un cambio comprensible en `docs/dast-exceptions.yml`.
 
 ## Que vas a cambiar y por que
 
-Actualiza docs/dast-exceptions.yml para que el control de "excepciones con caducidad" quede explícito y revisable.
+Actualiza `docs/dast-exceptions.yml` para que las excepciones no queden abiertas indefinidamente. La diferencia clave de este paso es que `expires_on:` deja de ser un dato decorativo y pasa a representar una fecha real de revisión o retirada de la aceptación temporal del riesgo.
 
 ## Archivo y seccion que debes modificar
 
@@ -20,16 +20,18 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 
 ```yaml
 exceptions:
-alert:
-path:
-reason:
-expires_on:
+  - alert: Missing Anti-CSRF Tokens
+    path: /profile
+    reason: Mitigacion parcial en curso
+    expires_on: 2026-12-31
 ```
 
 ## Como adaptarlo correctamente
 
 - Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
+- Usa `expires_on:` con una fecha concreta y revisable, no con un texto abierto o indefinido.
+- Mantén `reason:` conectado con una situación temporal: deuda aceptada, mitigación parcial o corrección planificada.
+- Evita que `path:` y `alert:` definan una excepción demasiado amplia, porque eso hace irrelevante la fecha de caducidad.
 - Evita añadir configuración que no esté relacionada con el objetivo del paso.
 
 ## Que deberia verse al terminar
@@ -37,6 +39,7 @@ expires_on:
 - La intención del cambio se entiende leyendo el archivo.
 - El archivo muestra el control sin depender de comentarios ambiguos.
 - Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- La excepción ya obliga a una revisión futura en lugar de convertirse en una aceptación permanente.
 
 ## Que valida el workflow automaticamente
 
