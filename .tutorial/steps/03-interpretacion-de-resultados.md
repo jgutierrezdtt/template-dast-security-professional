@@ -2,11 +2,11 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de DAST y debe dejar un cambio comprensible en docs/dast-analysis.md.
+Este paso introduce la interpretación de resultados DAST y debe dejar un cambio comprensible en `docs/dast-analysis.md`.
 
 ## Que vas a cambiar y por que
 
-Actualiza docs/dast-analysis.md para que el control de "interpretacion de resultados" quede explícito y revisable.
+En este paso vas a estructurar `docs/dast-analysis.md` para que un hallazgo no quede reducido a una alerta sin contexto. El valor de la interpretación está en conectar el finding con la ruta afectada, el riesgo real y la decisión posterior: corregir, revisar más a fondo o aceptar temporalmente con criterio.
 
 ## Archivo y seccion que debes modificar
 
@@ -28,7 +28,8 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 ## Como adaptarlo correctamente
 
 - Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
+- Usa `## Ruta afectada` para localizar el hallazgo en el flujo de la aplicación y no solo en el reporte del escáner.
+- Haz que `## Decision` conecte el análisis con la acción siguiente y no con una frase genérica.
 - Evita añadir configuración que no esté relacionada con el objetivo del paso.
 
 ## Que deberia verse al terminar
@@ -36,6 +37,7 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 - La intención del cambio se entiende leyendo el archivo.
 - El archivo muestra el control sin depender de comentarios ambiguos.
 - Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- El documento ya sirve para transformar resultados del escáner en decisiones de trabajo.
 
 ## Que valida el workflow automaticamente
 
