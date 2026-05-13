@@ -2,11 +2,11 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de DAST y debe dejar un cambio comprensible en .github/workflows/dast.yml.
+Este paso introduce un gate no bloqueante para DAST y debe dejar un cambio comprensible en `.github/workflows/dast.yml`.
 
 ## Que vas a cambiar y por que
 
-Actualiza .github/workflows/dast.yml para que el control de "gate no bloqueante" quede explícito y revisable.
+Actualiza `.github/workflows/dast.yml` para explicar un gate no bloqueante. La idea es que el workflow ejecute el escaneo y muestre resultados útiles sin impedir todavía el avance del pipeline. Este enfoque sirve cuando el programa aún está afinando cobertura, ruido o criterios de aceptación.
 
 ## Archivo y seccion que debes modificar
 
@@ -20,15 +20,19 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 
 ```yaml
 name: DAST
-pull_request:
-push:
-zap-scan:
+on:
+  pull_request:
+  push:
+jobs:
+  zap-scan:
 ```
 
 ## Como adaptarlo correctamente
 
 - Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
+- Mantén `name: DAST` y `zap-scan:` como elementos visibles del control automatizado.
+- Usa `pull_request:` y `push:` para dejar claro dónde se observa el resultado del gate informativo.
+- Explica el carácter no bloqueante en la narrativa del paso, sin necesidad de cambiar los marcadores que valida el repositorio.
 - Evita añadir configuración que no esté relacionada con el objetivo del paso.
 
 ## Que deberia verse al terminar
@@ -36,6 +40,7 @@ zap-scan:
 - La intención del cambio se entiende leyendo el archivo.
 - El archivo muestra el control sin depender de comentarios ambiguos.
 - Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- Se entiende que el workflow aporta visibilidad, aunque todavía no detenga la entrega.
 
 ## Que valida el workflow automaticamente
 
