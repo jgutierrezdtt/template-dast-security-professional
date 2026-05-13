@@ -2,11 +2,11 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de DAST y debe dejar un cambio comprensible en zap/config.yaml.
+Este paso introduce el primer escaneo DAST y debe dejar un cambio comprensible en `zap/config.yaml`.
 
 ## Que vas a cambiar y por que
 
-Actualiza zap/config.yaml para que el control de "primer escaneo dast" quede explícito y revisable.
+En este paso vas a crear o reforzar `zap/config.yaml` para que el escaneo tenga un contexto mínimo, una superficie incluida, una sección de autenticación preparada y una política de fallo clara. El detalle importante del paso es `fail_on_risk: high`: deja explícito que el primer umbral operativo del repositorio está en hallazgos de riesgo alto.
 
 ## Archivo y seccion que debes modificar
 
@@ -20,16 +20,20 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 
 ```yaml
 context:
-name: app-context
+  name: app-context
 include:
+  - http://localhost:3000/.*
 authentication:
+  type: none
 scan:
+  fail_on_risk: high
 ```
 
 ## Como adaptarlo correctamente
 
 - Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
+- Usa `app-context` como nombre legible del objetivo que se va a escanear.
+- Deja `fail_on_risk: high` visible para que el criterio de fallo no quede implícito.
 - Evita añadir configuración que no esté relacionada con el objetivo del paso.
 
 ## Que deberia verse al terminar
@@ -37,6 +41,7 @@ scan:
 - La intención del cambio se entiende leyendo el archivo.
 - El archivo muestra el control sin depender de comentarios ambiguos.
 - Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- Se entiende cuál es el contexto del escaneo y con qué severidad empieza a fallar el pipeline.
 
 ## Que valida el workflow automaticamente
 
