@@ -2,11 +2,11 @@
 
 ## Objetivo de aprendizaje
 
-Este paso introduce un control de DAST y debe dejar un cambio comprensible en zap/config.yaml.
+Este paso introduce la configuración de scope en DAST y debe dejar un cambio comprensible en `zap/config.yaml`.
 
 ## Que vas a cambiar y por que
 
-Actualiza zap/config.yaml para que el control de "configuracion de scope" quede explícito y revisable.
+Actualiza `zap/config.yaml` para que el alcance del escaneo quede explícito y revisable. Aquí el punto no es solo tener un contexto nombrado, sino decidir qué entra realmente en el análisis. Un `include:` bien planteado reduce ruido, evita rutas fuera de propósito y hace que los hallazgos sean defendibles.
 
 ## Archivo y seccion que debes modificar
 
@@ -20,16 +20,21 @@ Este bloque no es para pegar a ciegas: úsalo como punto de partida y ajústalo 
 
 ```yaml
 context:
-name: app-context
+  name: app-context
 include:
+  - http://localhost:3000/.*
 authentication:
+  type: form
 scan:
+  fail_on_risk: high
 ```
 
 ## Como adaptarlo correctamente
 
 - Mantén el cambio pequeño y centrado en una sola idea por paso.
-- Usa nombres claros para secciones, reglas o jobs.
+- Haz que `include:` represente de verdad el alcance del ejercicio y no una colección genérica de endpoints.
+- Mantén `authentication:` porque el scope útil en DAST profesional suele depender de qué sesión se aplica al rastreo.
+- Conserva `fail_on_risk: high` para que el alcance definido siga conectado con una decisión de bloqueo clara.
 - Evita añadir configuración que no esté relacionada con el objetivo del paso.
 
 ## Que deberia verse al terminar
@@ -37,6 +42,7 @@ scan:
 - La intención del cambio se entiende leyendo el archivo.
 - El archivo muestra el control sin depender de comentarios ambiguos.
 - Los marcadores esperados del paso aparecen de forma natural en la configuración.
+- Se entiende qué parte de la aplicación entra en el análisis y por qué ese límite importa.
 
 ## Que valida el workflow automaticamente
 
